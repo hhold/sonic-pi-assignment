@@ -1,0 +1,28 @@
+use_bpm 50                       #setting tempo
+
+live_loop :drums do              #starting an infinite loop
+  with_fx :lpf do                #applying an effect on the drum sounds
+    
+    sample :elec_hi_snare if one_in(6)       #will play with a one in six chance
+    sample :drum_cymbal_closed if one_in(2)  #will play with a one in two chance
+    sample :drum_cymbal_pedal if one_in(3)   #will play with a one in three chance
+    sample :bd_haus, amp: 1.5 if one_in(4)   #will play with a one in four chance
+    
+    sleep 0.2
+    
+  end
+end
+
+
+live_loop :melody do
+  with_fx :reverb do
+    use_synth :blade
+    
+    notes = (scale :d2, :major, num_octaves: 3)  #defining a scale of notes
+    play notes.choose, amp: 1   #choose will return a random note from the scale
+    
+    sleep 0.2
+  end
+end
+
+
